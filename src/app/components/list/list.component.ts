@@ -52,8 +52,8 @@ export class ListComponent implements OnInit {
 
     this.list = new List('', '', '', 0, null, null);
     this.url = global.url;
-    this.token = _userService.getToken();
-    this.identity = _userService.getIdentity();
+    this.token = this._userService.getToken();
+    this.identity = this._userService.getIdentity();
     this.page_title = 'Registrar lista';
 
   }

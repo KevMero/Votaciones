@@ -27,6 +27,7 @@ export class VerCandidatosComponent implements OnInit {
   public list: List;
   public user: User;
   public vote = 'true';
+  public dboton;
 
 
   constructor(
@@ -36,6 +37,7 @@ export class VerCandidatosComponent implements OnInit {
     private _userService: UserService,
     private _listService: ListService
   ) {
+    this.dboton = false;
     this.url = global.url;
     this.token = _userService.getToken();
     this.identity = _userService.getIdentity();
@@ -71,10 +73,11 @@ export class VerCandidatosComponent implements OnInit {
 
           this._listService.votar(this.token, this.list, id).subscribe(
             response => {
-            
+              this.dboton = true;
               this.voteTrue();
-            //  location.reload();
+
             },
+            
             error => {
               console.log(error);
             }
@@ -201,7 +204,66 @@ export class VerCandidatosComponent implements OnInit {
 
   }
 
+  ModalConfirm() {
 
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success ml-2',
+        cancelButton: 'btn btn-danger',
+
+      },
+      buttonsStyling: false,
+      allowOutsideClick: false,
+
+
+    });
+
+    swalWithBootstrapButtons.fire({
+      title: '¿Desea continuar con su votación?',
+      text: 'Su voto sera para la lista seleccionada',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+      allowOutsideClick: false
+
+
+
+    }).then((result) => {
+      if (result.value) {
+        this.votar();
+
+        swalWithBootstrapButtons.fire({
+         title: 'Voto Realizado',
+         text: 'Estamos generando su certificado',
+         icon: 'success',
+         showConfirmButton: false,
+         timer: 4000,
+         allowOutsideClick: false
+
+
+        }
+        
+
+        );
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelado',
+          'No ha realizado su voto',
+          'error',
+
+        );
+
+      }
+    });
+
+
+
+  }
 
 
 

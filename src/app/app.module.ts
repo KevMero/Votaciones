@@ -18,6 +18,7 @@ import { EditListComponent } from './components/edit-list/edit-list.component';
 import { EditCandidateComponent } from './components/edit-candidate/edit-candidate.component';
 import { VotesComponent } from './components/votes/votes.component';
 import { CertificateComponent } from './components/certificate/certificate.component';
+import { IdentityGuard } from './services/identity.guard';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CertificateComponent } from './components/certificate/certificate.compo
   ],
   providers: [
   appRoutingProviders,
-  UserService
+  UserService,
+  IdentityGuard
 
   ],
   bootstrap: [AppComponent]

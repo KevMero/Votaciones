@@ -24,9 +24,11 @@
             </div>
 
         </div>
-        <a (click)="votar()" class="btn btn-primary col-md-5 mt-5" style="display: block; margin: auto;" *ngIf="identity.role!='ROLE_ADMIN'">Votar</a>
+        <a (click)="ModalConfirm()" class="btn btn-primary col-md-5 mt-5" style="display: block; margin: auto;" *ngIf="identity.role!='ROLE_ADMIN' && !dboton">Votar</a>
 
 
     </div>
+    <div class="pie" style="height: 200px;"></div>
+
 
 </div>
